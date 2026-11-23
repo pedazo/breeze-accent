@@ -4,6 +4,8 @@ An independent window decoration for KDE Plasma 6.8, based on the official
 Breeze 6.8.3 code. It adds an accent outline to windows decorated by KWin,
 without replacing Breeze, changing the Qt style, or installing an effect.
 
+![Breeze Accent settings showing a 4 px Plasma accent outline around the active window](docs/breeze-accent-preview.jpg)
+
 In **System Settings → Colors & Themes → Window Decorations**, select
 **Breeze Accent**, apply it, and open the decoration's configuration button.
 By default, the active window uses the Plasma accent (2 px) and the inactive
