@@ -10,8 +10,9 @@ or select the plugin on the host desktop.
 Follow the [build and staging instructions](../README.md#build-without-installing).
 The modules should appear only in the plugin subdirectories
 `org.kde.kdecoration3/org.kde.breezeaccent.so` and
-`org.kde.kdecoration3.kcm/kcm_breezeaccent.so`. On Tumbleweed `x86_64`, the
-Qt 6 plugin root inside the staging tree is `usr/lib64/qt6/plugins`.
+`org.kde.kdecoration3.kcm/kcm_breezeaccent.so`. The Qt 6 plugin root varies
+by distribution; append the system Qt 6 `qtpaths` plugin path to the staging
+root as shown in the README.
 
 To prepare another test session, start `kwin_wayland --virtual` with its own
 D-Bus bus, `XDG_CONFIG_HOME`, and `XDG_RUNTIME_DIR`. In the isolated
@@ -49,16 +50,19 @@ a window or taking a screenshot alone does not.
   strip visible toward the center of the screen.
 - In an additional matrix, KDialog and Kate (Qt) negotiated SSD and showed
   the configured accent. `gtk3-demo` (GTK/Wayland) showed its CSD frame
-  without the accent. VS Code (Electron) started with Ozone Wayland requested
-  and showed its own title bar without the accent; the trace did not
-  independently confirm its Wayland transport. GTK and Electron were not
-  tested in SSD mode.
+  without the accent when no rule was set. With the
+  [Force → Only shadow rule](../README.md#electron-steam-and-other-apps-with-custom-title-bars),
+  a separate isolated Wayland test confirmed that `gtk3-demo` gained the
+  accent while retaining its own title bar. VS Code (Electron) started with
+  Ozone Wayland requested and showed its own title bar without the accent;
+  the trace did not independently confirm its Wayland transport. The
+  shadow-only rule was not validated with VS Code, Steam, or ChatGPT.
 
 To repeat the pixel test, you need Kate, Spectacle, `qdbus6`, D-Bus, and
 Python with Pillow, in addition to KWin and the staged modules:
 
 ```sh
-bash tests/wayland-smoke.sh "$PWD/stage/usr/lib64/qt6/plugins"
+bash tests/wayland-smoke.sh "$PWD/stage$(qtpaths6 --plugin-dir)"
 ```
 
 The script saves screenshots and traces in the temporary directory it reports.

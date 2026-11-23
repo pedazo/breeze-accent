@@ -36,11 +36,11 @@ window-scale grid step, with a minimum of one physical pixel.
   output. `BorderOutline` cannot suppress a single side or negotiate spacing
   between adjacent tiled windows; outlines can overlap if shown on both active
   and inactive windows.
-- **SSD/CSD:** The decoration runs only when KWin provides the frame. An
-  application can choose its own frame, including on Wayland with negotiated
-  decoration support. The plugin does not modify CSD, draw over application
-  content, or restore frames suppressed by KWin in fullscreen or by its
-  borderless-window policy.
+- **SSD/CSD:** The plugin needs KWin to instantiate its titled or shadow-only
+  decoration. Apps can retain their client-side title bar while KWin supplies
+  the shadow and outline; see the [per-app window rule](../README.md#electron-steam-and-other-apps-with-custom-title-bars).
+  The plugin does not modify CSD, draw over application content, or restore
+  frames suppressed by KWin in fullscreen or by its borderless-window policy.
 
 ## Updating the base
 
